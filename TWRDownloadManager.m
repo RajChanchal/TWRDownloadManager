@@ -254,11 +254,11 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
     }
 
 	if (success) {
-	    if (download.directoryName) {
-	        destinationLocation = [[[self cachesDirectoryUrlPath] URLByAppendingPathComponent:download.directoryName] URLByAppendingPathComponent:download.fileName];
-	    } else {
-	        destinationLocation = [[self cachesDirectoryUrlPath] URLByAppendingPathComponent:download.fileName];
-	    }
+        if (download.directoryName) {
+            destinationLocation = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@",download.directoryName,download.fileName]];
+        } else {
+            destinationLocation = [[self cachesDirectoryUrlPath] URLByAppendingPathComponent:download.fileName];
+        }
 
 	    // Move downloaded item from tmp directory to te caches directory
 	    // (not synced with user's iCloud documents)
